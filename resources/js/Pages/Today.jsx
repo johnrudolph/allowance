@@ -6,19 +6,27 @@ import Entry from './Entry';
 export default function Today({ entries }) {
   var [date, setDate] = useState(new Date());
 
-  var [entry, setEntry] = useState(entries[0]);
+  const getEntry = () => {
+    if (entries.find(entry => entry.date === date)) {
+      return entries.find(entry => entry.date === date);
+    }
+
+    return null;
+  };
+
+  var [entry, setEntry] = useState(getEntry());
 
   const increase = () => {
     setDate(new Date(date.setDate(date.getDate() + 1)));
+
+    setEntry(getEntry());
   };
 
   const decrease = () => {
     setDate(new Date(date.setDate(date.getDate() - 1)));
-  };
 
-  // const getEntry = (date) => {
-  //   return entries.find(entry => entry.day === date);
-  // };
+    setEntry(getEntry());
+  };
 
   return (
     <Guest>
@@ -27,7 +35,7 @@ export default function Today({ entries }) {
         <div className="font-bold">{ date.toDateString() }</div>
         <div className="control__btn" onClick={increase}>Forward</div>
       </div>
-      <Entry entry={ entry }/>
+      <Entry entry={entry}/>
     </Guest>
    )
 }

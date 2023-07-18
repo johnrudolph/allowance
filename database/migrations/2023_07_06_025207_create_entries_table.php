@@ -15,7 +15,7 @@ return new class extends Migration
         Schema::create('entries', function (Blueprint $table) {
             $table->id();
             $table->integer('entry_in_cents')->default(0);
-            $table->string('day');
+            $table->string('date');
             $table->foreignIdFor(User::class)->constrained();
             $table->timestamps();
         });

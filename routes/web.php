@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use Inertia\Inertia;
 use App\Models\Entry;
 use Illuminate\Http\Request;
@@ -16,9 +17,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::get('/', function () {
+Route::get('/users/{user}', function (User $user) {
     return Inertia::render('Index', [
-        'foo' => 'bar',
+        'user' => $user,
     ]);
 });
 
@@ -45,18 +46,5 @@ Route::get('/entries/{entry}', function (Entry $entry) {
 });
 
 Route::post('/create', function (Request $request) {
-    dd($request->all());
-
-    $entry = Entry::updateOrCreate([
-        'user_id' => $request->user_id,
-        'day' => $request->day,
-    ], [
-        'entry' => $request->entry,
-    ]);
-
-    $entry->save();
-});
-
-Route::post('/edit', function (Request $request) {
-    dd($request->all());
+    Entry::post(User::first(), $request->day, $request->entry_in_dollars);
 });

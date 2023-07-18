@@ -14,11 +14,5 @@ class DatabaseSeeder extends Seeder
             'name' => 'John Rudolph Drexler',
             'email' => 'johnrudolphdrexler@gmail.com',
         ]);
-
-        collect(range(1,30))->each(function($day) {
-            Entry::factory()->create([
-                'day' => "2023-06-{$day}",
-            ]);
-        });
     }
 }

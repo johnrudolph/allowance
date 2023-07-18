@@ -18,7 +18,7 @@ class EntryFactory extends Factory
     {
         return [
             'entry_in_cents' => $this->faker->numberBetween(0, 10000),
-            'day' => $this->faker->date(),
+            'date' => $this->faker->date(),
             'user_id' => 1,
         ];
     }
