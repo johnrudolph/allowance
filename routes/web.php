@@ -27,24 +27,26 @@ Route::get('/about', function () {
     return Inertia::render('About');
 });
 
+Route::get('/', function () {
+    return Inertia::render('Home', [
+        'user' => User::first(),
+    ]);
+});
+
 Route::get('/today', function () {
     return Inertia::render('Today', [
         'entries' => Entry::all(),
-    ]);
-});
-
-Route::get('/entries', function () {
-    return Inertia::render('Entries', [
-        'entries' => Entry::all(),
-    ]);
-});
-
-Route::get('/entries/{entry}', function (Entry $entry) {
-    return Inertia::render('Entry', [
-        'entry' => $entry,
+        'user' => User::find(1),
     ]);
 });
 
 Route::post('/create', function (Request $request) {
-    Entry::post(User::first(), $request->day, $request->entry_in_dollars);
+
+    Entry::post(User::first(), $request->date_formatted, $request->entry_in_dollars);
+});
+
+Route::post('/edit_user', function (Request $request) {
+    $user = User::find($request->user_id);
+
+    $user->updateInfo($request->allowance_in_dollars * 100, $request->description);
 });

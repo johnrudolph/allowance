@@ -23,4 +23,12 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    public function updateInfo(Int $allowance_in_cents, $description)
+    {
+        $this->allowance_in_cents = $allowance_in_cents;
+        $this->allowance_description = $description;
+    
+        $this->save();
+    }
 }

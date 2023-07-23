@@ -28,4 +28,14 @@ class ExampleTest extends TestCase
 
         $this->assertEquals(7917, Entry::first()->entry_in_cents);
     }
+
+    public function update_user_info(): void
+    {
+        $user = User::factory()->create();
+
+        User::updateInfo(5027, 'hot dogs');
+
+        $this->assertEquals(5027, $user->fresh()->allowance_in_cents);
+        $this->assertEquals('hot dogs', $user->fresh()->allowance_description);
+    }
 }
